@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<robot name = "my_robot">
+
+    <material name = "blue">
+        <color rgba = "0 0 0.7 1"/>
+    </material>
+
+    <material name = "grey">
+        <color rgba = "0.7 0.7 0.7 1"/>
+    </material>
+
+    <link name = "base_link">
+        <visual>
+            <geometry>
+                <box size = "0.6 0.4 0.2"/>
+            </geometry>
+            <!--z=0.1, which is half of height of box size: it keeps box on the origin.-->
+            <origin xyz = "0 0 0.1" rpy = "0 0 0"/> 
+            <material name = "blue"/>
+        </visual>
+    </link>
+
+    <link name = "second_link">
+        <visual>
+            <geometry>
+                <cylinder radius = "0.1" length = "0.2"/>
+            </geometry>
+
+            <!-- since the cylinder is placed at center by default, let's place it at top of TF by z=0.1..
+            half the length since it was already in centre which is in middle of lenght-->
+            <origin xyz = "0 0 0.1" rpy ="0 0 0"/>
+            <material name = "grey"/>
+        </visual>
+    </link>
+
+    <joint name = "base_second_joint" type = "revolute">
+        <parent link = "base_link"/>
+        <child link = "second_link"/>
+        <!--set TF by placing joint on top of first link= height of first link=> z=0.2 -->
+        <origin xyz = "0 0 0.2" rpy = "0 0 0"/>
+        <axis xyz = "0 0 1"/>
+        <!--1.57 represents 90 degree rotation since in radians, 180 degree = pi = 3.14 -->
+        <limit lower = "-1.57" upper = "1.57" velocity = "100" effort = "100"/>
+    </joint>
+
+</robot>
