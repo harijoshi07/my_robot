@@ -1,3 +1,4 @@
-build
-install
-log
+# Ignore install, build, and log directories inside ros_ws
+ros_ws/install/
+ros_ws/build/
+ros_ws/log/
