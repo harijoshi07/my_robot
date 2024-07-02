@@ -15,7 +15,7 @@
             <geometry>
                 <box size = "0.6 0.4 0.2"/>
             </geometry>
-            <!--z=0.1, which is half of height of box size: it keeps box on the origin.-->
+            <!--z=0.1, which is half of height of box size, it keeps box on the origin.-->
             <origin xyz = "0 0 0.1" rpy = "0 0 0"/> 
             <material name = "blue"/>
         </visual>
