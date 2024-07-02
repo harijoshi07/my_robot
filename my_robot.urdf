@@ -21,27 +21,65 @@
         </visual>
     </link>
 
-    <link name = "second_link">
+    <link name = "right_wheel_link">
         <visual>
             <geometry>
-                <cylinder radius = "0.1" length = "0.2"/>
+                <cylinder radius="0.1" length="0.05" />
             </geometry>
-
-            <!-- since the cylinder is placed at center by default, let's place it at top of TF by z=0.1..
-            half the length since it was already in centre which is in middle of lenght-->
-            <origin xyz = "0 0 0.1" rpy ="0 0 0"/>
+            <origin xyz = "0 0 0" rpy = "1.57 0 0"/> 
             <material name = "grey"/>
         </visual>
     </link>
 
-    <joint name = "base_second_joint" type = "revolute">
+     <link name = "left_wheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz = "0 0 0" rpy = "1.57 0 0"/> 
+            <material name = "grey"/>
+        </visual>
+    </link>
+
+     <link name = "caster_wheel_link">
+        <visual>
+            <geometry>
+                <sphere radius = "0.05" />
+            </geometry>
+            <origin xyz = "0 0 0" rpy = "1.57 0 0"/> 
+            <material name = "grey"/>
+        </visual>
+    </link>
+
+    <link name = "base_footprint_link"/>
+
+    <joint name = "base_right_wheel_joint" type = "continuous">
         <parent link = "base_link"/>
-        <child link = "second_link"/>
-        <!--set TF by placing joint on top of first link= height of first link=> z=0.2 -->
-        <origin xyz = "0 0 0.2" rpy = "0 0 0"/>
-        <axis xyz = "0 0 1"/>
-        <!--1.57 represents 90 degree rotation since in radians, 180 degree = pi = 3.14 -->
-        <limit lower = "-1.57" upper = "1.57" velocity = "100" effort = "100"/>
+        <child link = "right_wheel_link"/>
+        <origin xyz = "-0.15 -0.225 0"  rpy = "0 0 0"/>
+        <axis xyz = "0 1 0"/>
     </joint>
+
+
+    <joint name = "base_left_wheel_joint" type = "continuous">
+        <parent link = "base_link"/>
+        <child link = "left_wheel_link"/>
+        <origin xyz = "-0.15 0.225 0"  rpy = "0 0 0"/>
+        <axis xyz = "0 1 0"/>
+    </joint>
+
+    <joint name = "base_caster_joint" type = "fixed">
+        <parent link = "base_link"/>
+        <child link = "caster_wheel_link"/>
+        <origin xyz = "0.2 0 -0.05"  rpy = "0 0 0"/>
+    </joint>
+
+    <joint name = "base_joint" type = "fixed">
+        <parent link = "base_footprint_link"/>
+        <child link = "base_link"/>
+        <origin xyz = "0 0 0.1"  rpy = "0 0 0"/>
+    </joint>
+
+
 
 </robot>
